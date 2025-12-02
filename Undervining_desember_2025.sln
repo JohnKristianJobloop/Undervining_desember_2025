@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodestil_Kodestandarder", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListImplementation", "ListImplementation\ListImplementation.csproj", "{577F3EA5-1528-4B35-BBD9-146BB5DE181D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListImplementationConsumer", "ListImplementationConsumer\ListImplementationConsumer.csproj", "{CC04E354-772F-475B-8CBE-1EF8D9CFE754}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{577F3EA5-1528-4B35-BBD9-146BB5DE181D}.Release|x64.Build.0 = Release|Any CPU
 		{577F3EA5-1528-4B35-BBD9-146BB5DE181D}.Release|x86.ActiveCfg = Release|Any CPU
 		{577F3EA5-1528-4B35-BBD9-146BB5DE181D}.Release|x86.Build.0 = Release|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Debug|x64.Build.0 = Debug|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Debug|x86.Build.0 = Debug|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Release|x64.ActiveCfg = Release|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Release|x64.Build.0 = Release|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Release|x86.ActiveCfg = Release|Any CPU
+		{CC04E354-772F-475B-8CBE-1EF8D9CFE754}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
