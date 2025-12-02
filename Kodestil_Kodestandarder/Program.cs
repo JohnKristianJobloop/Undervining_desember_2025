@@ -40,6 +40,12 @@ for (int i = 0; i < numbers.Length; i++)
     numbers[i] = i*i;
 }
 
+var found = numbers.Where(number => number == 37).FirstOrDefault(); //default verdien til en int (og alle andre standard verdi typer) er 0
+
+var foundName = names.Where(name => name == "Jakob").FirstOrDefault();
+
+var foundNameToUpper = foundName.ToUpper(); //default verdien av våre reference typer er NULL (ingenting).
+
 
 /// la oss si vi tar inn tallet 5, og skal se om det er even:
 /// 
