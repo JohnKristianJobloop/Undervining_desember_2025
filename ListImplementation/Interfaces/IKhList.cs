@@ -13,7 +13,7 @@ public interface IKhList<T>
     
     public void Change(T changedData, T originalItem);
 
-    public void Change(Func<T, T> functionToChangeSomeData);
+    public void Change(T originalItem, Func<T, T> functionToChangeSomeData);
 
     public T this[int index]{get;set;}
 }
