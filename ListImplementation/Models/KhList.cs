@@ -19,7 +19,24 @@ public class KhList<T> : IKhList<T> where T: IComparable<T>
         _values = [.. newArray.Select((_, i) => i < _capacity && _values[i] is not null ? _values[i] : default!)];
     }
 
-    public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public T this[int index] {
+        get
+        {
+            if(index < 0 || index >= _currentLastAvailableIndexOfValues)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            return _values[index];
+        } 
+        set
+        {
+            if(index < 0 || index >= _currentLastAvailableIndexOfValues)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            _values[index] = value;
+        }
+    }
 
     public void Add(T? data)
     {
@@ -33,45 +50,115 @@ public class KhList<T> : IKhList<T> where T: IComparable<T>
         return;
     }
 
+    // change the first instance of incomming data by it's index
     public void Change(T changedData, int index)
     {
-        throw new NotImplementedException();
-    }
+        if(index < 0 || index >= _currentLastAvailableIndexOfValues)
+        {
+            throw new IndexOutOfRangeException("");
+        }
 
+        _values[index] = changedData;
+    }
+    
     public void Change(T changedData, T originalItem)
     {
-        throw new NotImplementedException();
+        var index = FindIndex(originalItem);
+        // if we find the last position(-1) we exit out/return
+        if(index == -1)
+        {
+            return;
+        }
+
+        _values[index] = changedData;
+
     }
 
     public void Change(T originalItem, Func<T, T> functionToChangeSomeData)
     {
-        var found = _values.FirstOrDefault(value => value.Equals(originalItem));
-        if (found is null) return;
+        // var found = _values.FirstOrDefault(value => value.Equals(originalItem));
+        // if (found is null) return;
 
-        var index = _values.IndexOf(found);
-        _values[index] = functionToChangeSomeData(found);
+        // var index = IndexOf(found, -1);
+        // _values[index] = functionToChangeSomeData(found);
+
+        // sorry, try to utilize the helper method. - jm
+        
+        var getIndex = FindIndex(originalItem);
+        if(getIndex == - 1)
+        {
+            return;
+        }
+        _values[getIndex] = functionToChangeSomeData(_values[getIndex]);
     }
+
+    // public T? Remove(T dataToBeRemoved)
+    // {
+    //     var last = _values.Last();
+    //    if (dataToBeRemoved.Equals(last))
+    //     {
+    //         _currentLastAvailableIndexOfValues--;
+    //         return last;
+    //     }
+    //     var found = _values.FirstOrDefault(value => value.Equals(dataToBeRemoved));
+    //     if (found is null) return default;
+    //     var indexOfFound = _values.Where(_values[found]);
+    //     var result = new T[_currentLastAvailableIndexOfValues -1];
+    //     _values.AsSpan(0, indexOfFound).CopyTo(result);
+    //     _values.AsSpan(indexOfFound + 1, _currentLastAvailableIndexOfValues-1).CopyTo(result);
+    //     _values = result;
+    //     return found;
+    // }
+
+    // basic implementation
 
     public T? Remove(T dataToBeRemoved)
     {
-        var last = _values.Last();
-       if (dataToBeRemoved.Equals(last))
+        var index = FindIndex(dataToBeRemoved);
+        if(index == -1)
         {
-            _currentLastAvailableIndexOfValues--;
-            return last;
+            return default;
         }
-        var found = _values.FirstOrDefault(value => value.Equals(dataToBeRemoved));
-        if (found is null) return default;
-        var indexOfFound = _values.IndexOf(found);
-        var result = new T[_currentLastAvailableIndexOfValues -1];
-        _values.AsSpan(0, indexOfFound).CopyTo(result);
-        _values.AsSpan(indexOfFound + 1, _currentLastAvailableIndexOfValues-1).CopyTo(result);
-        _values = result;
-        return found;
+        return RemoveAtInternal(index);
     }
 
     public T? Remove(Func<T, bool> functionToFindMatches)
     {
-        throw new NotImplementedException();
+        for(int i = 0; i < _currentLastAvailableIndexOfValues; i++)
+        {
+            if (functionToFindMatches(_values[i]))
+            {
+                return RemoveAtInternal(i);
+            }
+        }
+        return default;
+    }
+
+    // private helper method: FindIndex
+    private int FindIndex(T item)
+    {
+        for(int i = 0; i < _currentLastAvailableIndexOfValues;i++)
+        {
+            if (_values[i].Equals(item))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // private helper method: RemoveAtInternal
+    private T? RemoveAtInternal(int index)
+    {
+        T removed = _values[index]; // keep track of removed items
+
+        for(int i = 0; i < _currentLastAvailableIndexOfValues - 1; i++)
+        {
+            _values[i] = _values[i + 1];
+        }
+
+        _currentLastAvailableIndexOfValues--;
+
+        return removed;
     }
 }
