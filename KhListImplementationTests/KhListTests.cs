@@ -46,8 +46,6 @@ public class KhListTests
         Assert.Equal(5, removed);
         Assert.Equal(10, list[0]);
         Assert.Equal(15, list[1]);
-        Assert.Contains(list[0].ToString(), 10.ToString());
-        Assert.Contains(list[1].ToString(), 15.ToString());
     }
 
     [Fact]
