@@ -1,0 +1,47 @@
+vi skal implementere levensteihn's distanse algoritme
+
+Den består av følgende beskrivelse:
+
+gitt to strenger a og b
+
+hvis lengde til a erlik 0, skal lengden til b returneres
+hvis lengde til b erlik 0, skal lengden til a returneres
+
+hvis første bokstav i a, er lik første bokstav i b,
+skal vi returnere denne funksjon, med de resterende bokstanvene
+
+ellers gjelder følgende:
+returner 1 + minimumsverdien av
+    denne funksjonen med resten av a og hele b,
+    denne funksjonen med hele a, og resten av b,
+    denne funksjonen med resten av a og resten av b
+
+lev(string a, string b) is {
+    if (a.length == 0) return b.length
+    if (b.length == 0) return a.length
+
+    if (a[0] == b[0]) return lev(a.skip(1), b.skip(1))
+    return 1 + Min(
+        lev(a, b.skip(1)),
+        lev(a.skip(1), b),
+        lev(a.skip(1), b.skip(1))
+    )
+}
+
+Gitt to strenger Kitten og Sitting
+Skal avstanden være 3, fordi det tar tre operasjoner
+å gjøre Kitten om til Sitting:
+
+K -> S
+E -> I
+insert (g)
+
+vi kan da Asserte at resultatet av lev(kitten, sitting) skal ha verdien 3.
+
+test:
+string a = kitten
+string b = sitting
+
+int result = lev(kitten, sitting)
+
+assert.equal(result, 3)
