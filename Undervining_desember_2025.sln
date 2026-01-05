@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepetisjonDag", "Repetisjon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevensteinTest", "LevensteinTest\LevensteinTest.csproj", "{110EA402-DAFE-49B2-90F1-1FAA46C44FF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Async_programmering", "Async_programmering\Async_programmering.csproj", "{EBFB8432-604A-400B-AD81-93A5B6318720}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{110EA402-DAFE-49B2-90F1-1FAA46C44FF9}.Release|x64.Build.0 = Release|Any CPU
 		{110EA402-DAFE-49B2-90F1-1FAA46C44FF9}.Release|x86.ActiveCfg = Release|Any CPU
 		{110EA402-DAFE-49B2-90F1-1FAA46C44FF9}.Release|x86.Build.0 = Release|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Debug|x64.Build.0 = Debug|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Debug|x86.Build.0 = Debug|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Release|x64.ActiveCfg = Release|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Release|x64.Build.0 = Release|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Release|x86.ActiveCfg = Release|Any CPU
+		{EBFB8432-604A-400B-AD81-93A5B6318720}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
