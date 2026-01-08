@@ -2,8 +2,6 @@
 
 using HttpClientExploration.Services;
 
-
-await Task.Delay(200);
 var parallellService = new ParallellRequestsService();
 var sequentialService = new SequencialRequestsService();
 

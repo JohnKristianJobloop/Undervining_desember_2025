@@ -1,0 +1,7 @@
+--------------------------DKeIk81Xc12RI4TTfF1cT2
+Content-Disposition: form-data; name="file"; filename="helloFromTerminal.txt"
+Content-Type: text/plain
+
+Hello!
+
+--------------------------DKeIk81Xc12RI4TTfF1cT2--

@@ -1,0 +1,5 @@
+--------------------------drBoZLB4jPyWdihvtKwMZn
+Content-Disposition: form-data; name="file"
+
+./helloFromTerminal.txt
+--------------------------drBoZLB4jPyWdihvtKwMZn--
