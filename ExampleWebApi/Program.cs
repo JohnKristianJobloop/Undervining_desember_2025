@@ -1,6 +1,5 @@
-using ExampleWebApi.Models;
+using System.Reflection;
 using ExampleWebApi.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    opt =>
+    {
+        var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        opt.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+    }
+);
+builder.Services.AddControllers()
+.ConfigureApiBehaviorOptions(opt => {opt.SuppressModelStateInvalidFilter = true;});
 
 builder.Services.AddSingleton<DiaryService>();
 
@@ -24,26 +31,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
-//Når vi lager endepunkter, kan det være greit å ha følgende i bakhode:
-//La gjerne kombinasjonen HttpMetode og route være en slagt Subject Verb sammensettning.
-//Hvor kombinasjonen av disse forteller oss hva forespørselen handler om. 
-app.MapGet("/diaryentries", (DiaryService service)=> service.Get());
-
-app.MapPost("/diaryentries", (string title, string description, DiaryService service) =>
-{
-    var entry = new DiaryEntry
-    {
-        Title = title,
-        Description = description,
-        Published = DateTime.UtcNow
-    };
-    service.Add(entry);
-    return Results.Created($"/diaryentries/{entry.Id}", entry);
-});
-
-
-app.MapGet("/diaryentries/{id:Guid}", (Guid id, DiaryService service)=> service.Get().FirstOrDefault(entry => entry.Id == id) is DiaryEntry entry ? Results.Ok(entry) : Results.NotFound());
+app.MapControllers();
 
 
 app.Run();

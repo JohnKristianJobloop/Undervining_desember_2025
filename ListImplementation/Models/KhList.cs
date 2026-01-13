@@ -9,6 +9,8 @@ public class KhList<T> : IKhList<T> where T: IComparable<T>
 
     internal int _capacity => _values.Length;
 
+    public int Count => _values.Length; 
+
     internal int _growthFactor => 1;
 
     internal int _currentLastAvailableIndexOfValues = 0;
@@ -49,6 +51,8 @@ public class KhList<T> : IKhList<T> where T: IComparable<T>
         _currentLastAvailableIndexOfValues++;
         return;
     }
+
+    public IEnumerable<T> Values => _values;
 
     // change the first instance of incomming data by it's index
     public void Change(T changedData, int index)
