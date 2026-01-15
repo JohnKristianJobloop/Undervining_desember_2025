@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using ExampleWebApi.Interfaces;
 using ExampleWebApi.Models;
 using ExampleWebApi.Models.DTO;
 using ExampleWebApi.Services;
@@ -9,7 +11,7 @@ namespace ExampleWebApi.Controllers;
  
 [Route("api/[controller]")] //Dette representerer rawURl til controlleren vår. noe a.la http://localhost:5093/api/diaryentries
 [ApiController]
-public class DiaryEntriesController(DiaryService service) : ControllerBase
+public class DiaryEntriesController(IDiaryService service, ILogger<DiaryEntriesController> logger) : ControllerBase
 {
     /// <summary>
     /// Gets all entries served by the Diary Service
@@ -17,7 +19,7 @@ public class DiaryEntriesController(DiaryService service) : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IEnumerable<DiaryEntry> Get() => service.Get(); //GET mot http://localhost:5093/api/diaryentries
+    public async Task<IActionResult> Get() => Ok(await service.GetAsync()); //GET mot http://localhost:5093/api/diaryentries
 
 
     /// <summary>
@@ -28,10 +30,14 @@ public class DiaryEntriesController(DiaryService service) : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Post([FromBody] DiaryEntryDTO dto)
+    public async Task<IActionResult> Post([FromBody] DiaryEntryDTO dto)
     {
+        var stopWatch = Stopwatch.StartNew();
         if(!ModelState.IsValid) return BadRequest("Invalid format of incomming data");
-        return Ok(dto.CreateEntry(service));
+        var result = await dto.CreateEntryAsync(service);
+        stopWatch.Stop();
+        logger.LogInformation($"The operation took: {stopWatch.ElapsedMilliseconds}");
+        return Ok(result);
     }
 
     /// <summary>
@@ -42,5 +48,9 @@ public class DiaryEntriesController(DiaryService service) : ControllerBase
     [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult Get(Guid id) => service.Get().FirstOrDefault(entry => entry.Id == id) is DiaryEntry entry ? Ok(entry) : NotFound();
+    public async Task<IActionResult> Get(Guid id)
+    {
+        var entries = await service.GetAsync();
+        return entries.FirstOrDefault(entry => entry.Id == id) is DiaryEntry entry ? Ok(entry) : NotFound();
+    }
 }

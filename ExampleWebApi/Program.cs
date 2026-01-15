@@ -1,7 +1,15 @@
 using System.Reflection;
+using ExampleWebApi.DataContext;
+using ExampleWebApi.Interfaces;
 using ExampleWebApi.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.ConfigureAppConfiguration((hostBuilder, configBuilder) =>
+{
+    configBuilder.AddUserSecrets(Assembly.GetExecutingAssembly()).AddEnvironmentVariables();
+});
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -17,7 +25,9 @@ builder.Services.AddSwaggerGen(
 builder.Services.AddControllers()
 .ConfigureApiBehaviorOptions(opt => {opt.SuppressModelStateInvalidFilter = true;});
 
-builder.Services.AddSingleton<DiaryService>();
+var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Missing Connection string 'Default'");
+
+builder.Services.AddDbContext<IDiaryService, DiaryDbContext>(opt => {opt.UseSqlite(connectionString);});
 
 var app = builder.Build();
 
